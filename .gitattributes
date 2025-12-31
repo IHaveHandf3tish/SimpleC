@@ -1,0 +1,2 @@
+# SimpleC (.sc) files - a superset of C
+*.sc linguist-language=C
