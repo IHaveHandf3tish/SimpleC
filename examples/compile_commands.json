@@ -1,0 +1,5 @@
+{
+"/comment": "Clang compilation database",
+"//comment": "Tells Clang how to compile your .sc files",
+"///comment": "Contains compiler flags, include paths, etc."
+}
