@@ -1,15 +1,13 @@
 #include "clang/AST/ASTConsumer.h"
 #include "clang/AST/ASTContext.h"
 #include "clang/Rewrite/Core/Rewriter.h"
+#include "SimpleCConsumer.h"
+#include "llvm/Support/raw_ostream.h"
 
-class SimpleCConsumer : public clang::ASTConsumer {
-public:
-    explicit SimpleCConsumer(clang::Rewriter &R) : TheRewriter(R) {}
+SimpleCConsumer::SimpleCConsumer(clang::Rewriter &R) : TheRewriter(R) {
+}
 
-    void HandleTranslationUnit(clang::ASTContext &Context) override {  
-        llvm::outs() << "AST is ready for processing.\n";
-    }
-    private:
-    clang::Rewriter &TheRewriter;
-};
+void SimpleCConsumer::HandleTranslationUnit(clang::ASTContext &Context) {
+    llvm::errs() << ">>> SimpleC AST Consumer is active and processing.\n";
+}
 

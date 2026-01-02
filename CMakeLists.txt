@@ -1,6 +1,10 @@
-
+include_directories(include/simplec/modules)
 cmake_minimum_required(VERSION 3.10)
 project(SimpleC)
+
+if(NOT MSVC)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
+endif()
 
 find_package(LLVM REQUIRED CONFIG)
 find_package(Clang REQUIRED CONFIG)
@@ -13,6 +17,7 @@ add_definitions(${LLVM_DEFINITIONS})
 
 set(SOURCE_FILES
     src/main.cpp
+    src/modules/SimpleCConsumer.cpp
 )
 
 add_executable(simplec ${SOURCE_FILES})
@@ -25,7 +30,13 @@ target_link_libraries(simplec
     clangRewrite
     clangBasic
     clangSerialization
+    clangParse
+    clangSema
+    clangEdit
+    clangAnalysis
+    clangDriver
+    clangASTMatchers
+    clangSupport 
     
     LLVM
 )
-

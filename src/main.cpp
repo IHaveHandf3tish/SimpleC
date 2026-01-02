@@ -18,10 +18,10 @@ Optionally invoke the C compiler on the result
 #include "clang/Tooling/Tooling.h"
 #include "llvm/Support/CommandLine.h"
 #include "clang/Rewrite/Core/Rewriter.h"
-#include "llvm/Support/raw_onstream"
+#include "llvm/Support/raw_ostream.h"
 #include "SimpleCConsumer.h"
 
-using namespace clang::Tooling;
+using namespace clang::tooling;
 using namespace clang;
 using namespace llvm;
 
@@ -43,11 +43,11 @@ class SimpleCTranspilerAction : public ASTFrontendAction {
 
 
 int main(int argc, const char **argv){
-    auto ExpectedParser = CommonOptionsParser::create(argc,argv, SimpleCToolCategory)
+    auto ExpectedParser = CommonOptionsParser::create(argc,argv, SimpleCToolCategory);
     if (!ExpectedParser) {
         llvm::errs() <<ExpectedParser.takeError();
         return 1;
-    }
+    };
     CommonOptionsParser &OptionsParser = ExpectedParser.get();
 
     ClangTool Tool(OptionsParser.getCompilations(), OptionsParser.getSourcePathList());
