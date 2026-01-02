@@ -1,27 +1,31 @@
+
 cmake_minimum_required(VERSION 3.10)
 project(SimpleC)
 
-# Find Clang and LLVM
-find_package(Clang REQUIRED)
-find_package(LLVM REQUIRED)
+find_package(LLVM REQUIRED CONFIG)
+find_package(Clang REQUIRED CONFIG)
 
-include_directories(${LLVM_INCLUDE_DIRS} ${CLANG_INCLUDE_DIRS})
-include_directories(${CMAKE_SOURCE_DIR}/include) # Your internal headers
+include_directories(${LLVM_INCLUDE_DIRS})
+include_directories(${CLANG_INCLUDE_DIRS})
+link_directories(${LLVM_LIBRARY_DIRS})
 
 add_definitions(${LLVM_DEFINITIONS})
 
-# Group your source files
-file(GLOB_RECURSE SOURCES "src/*.cpp")
+set(SOURCE_FILES
+    src/main.cpp
+)
 
-add_executable(sc ${SOURCES})
+add_executable(simplec ${SOURCE_FILES})
 
-target_link_libraries(sc
+target_link_libraries(simplec
+    PRIVATE
     clangTooling
     clangFrontend
-    clangRewrite
     clangAST
-    clangASTMatchers
+    clangRewrite
     clangBasic
-    LLVMSupport
-    LLVMCore
+    clangSerialization
+    
+    LLVM
 )
+
